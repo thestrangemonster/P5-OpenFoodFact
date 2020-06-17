@@ -44,7 +44,7 @@ class App:
             print('\n')
             # var with input for enter a number or navigate 
             self.push = input(
-                "R ->, <- L or enter a number: ")
+                "R ->, <- L or What food do you want to replace? enter a number: ")
             # bloc with keys words try except
             try:
                 # it's a condition if self push is a integer, so try excecut that 
