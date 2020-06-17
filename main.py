@@ -22,8 +22,10 @@ categories = {1: "pizza",
               5: "vegetables",
               6: "fruits"
               }
-length=[0]
 
+# var for stocked the limit of each categories              
+length=[0]
+# var for stoked the number of products of each categories
 size=[]
 def main():
     run=True
