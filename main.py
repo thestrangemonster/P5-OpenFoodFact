@@ -27,11 +27,17 @@ categories = {1: "pizza",
 length=[0]
 # var for stoked the number of products of each categories
 size=[]
+# methode/fonction main()
 def main():
+    # var for the loop while
     run=True
+    # instance database "import file database.py"
     db = database
+    # methode create_db() => creation of the database 
     db.create_db()
+    # var for stoked the number of the limite and size of the products per categories 
     nb = 0
+    # loop for each categories used for iterating over a sequence "dictionnary"
     for row in categories:
         x = ManageDB(categories[row]).get_data_api()
         nb += x
