@@ -1,8 +1,9 @@
 
-
+"""
 CREATE DATABASE p5_openfoodfacts;
 GRANT ALL PRIVILEGES ON DATABASE p5_openfoodfacts TO tom;
 \connect p5_openfoodfacts
+"""
 
 CREATE TABLE categories (
     id SERIAL PRIMARY KEY,
