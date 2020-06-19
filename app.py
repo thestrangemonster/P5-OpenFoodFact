@@ -23,12 +23,13 @@ class App:
         self.page = 1
         # var get the data on the DB
         self.result = self.db.get_data(result)
+        print(self.result)
         print('\n')
         print('**********************************************')
         # loop for post the products
-        for row in self.result.products:
+        for row in self.result:
             if row.id >= self.beging and row.id <= self.beging + 9:
-                print(row.id,row.product_name)
+                print(row.id, row.product_name)
 
         #print('page {} sur {}'.format(self.page, self.a+1))
         # loop while 
@@ -101,7 +102,7 @@ class App:
                         #print('\n')
                         #print(
                             #'***********************  {}  ***********************'.format(self.category.upper()))
-                        for row in self.result.products:
+                        for row in self.result:
                             if row.id >= self.beging and row.id <= self.end:
                                 print(row.id, row.product_name)
                         print(self.page)
@@ -112,7 +113,7 @@ class App:
                         #print('\n')
                         #print(
                             #'***********************  {}  ***********************'.format(self.category.upper()))
-                        for row in self.result.products:
+                        for row in self.result:
                             if row.id >= self.beging and row.id <= self.beging + 9:
                                 print(row.id, row.product_name)
                         print(self.page)
@@ -127,7 +128,7 @@ class App:
                         #print('\n')
                         #print(
                             #'***********************  {}  ***********************'.format(self.category.upper()))
-                        for row in self.result.products:
+                        for row in self.result:
                             if row.id >= self.beging and row.id <= self.beging + 9:
                                 print(row.id, row.product_name)
                         print(self.page)
@@ -138,7 +139,7 @@ class App:
                         #print('\n')
                         #print(
                             #'***********************  {}  ***********************'.format(self.category.upper()))
-                        for row in self.result.products:
+                        for row in self.result:
                             if row.id >= self.beging and row.id <= self.beging + 9:
                                 print(row.id, row.product_name)
                         print(self.page)

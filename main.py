@@ -68,6 +68,7 @@ def main():
 
         # condiction for enter in the category pizza
         if choice_categories == "pizza":
+            print((1, length[0], length[1], size[0]))
             app.display_choice_of_products(1,length[0],length[1],size[0])
             
             #nb_not_allowed = False

@@ -12,9 +12,10 @@ CREATE TABLE categories (
 CREATE TABLE products (
     id SERIAL PRIMARY KEY,
     category_id  smallint NOT NULL,
+    nutri_score VARCHAR(40) NOT NULL,
     product_name  VARCHAR(40) NOT NULL,
     stores_tags  VARCHAR(40) NOT NULL,
-    url  VARCHAR(200) NOT NULL
+    url_  VARCHAR(200) NOT NULL
 );
 CREATE TABLE favorites (
     id SERIAL PRIMARY KEY,
