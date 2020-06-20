@@ -29,7 +29,7 @@ class Product(Base):
     id = Column(Integer, primary_key=True)
     category_id = Column(Integer, ForeignKey('categories.id'))
     product_name = Column(String)
-    #nutri_score = Column(String)
+    nutri_score = Column(String)
     stores_tags = Column(String)
     url = Column(String)
     category = relationship("Category", back_populates="products")
@@ -42,6 +42,7 @@ class Favorite(Base):
     favorite_id = Column(Integer, ForeignKey('products.id'))
     product_name = Column(String)
     product = relationship("Product", back_populates="favorites")
+
 # method for creat the table in the db
 def create_db():
     Category.products = relationship(
@@ -49,13 +50,14 @@ def create_db():
     Product.favorites = relationship(
         "Favorite", order_by=Favorite.id, back_populates="product")
     Base.metadata.create_all(engine)
+
 # method for set the datas in the db
 def set_data(data):
-
     Session = sessionmaker(bind=engine)
     session = Session()
     session.add(data)
     session.commit()
+
 # method for get the datas in the db
 def get_data(cat_select):
     Session = sessionmaker(bind=engine)
@@ -63,7 +65,6 @@ def get_data(cat_select):
     result = session.query(Product).filter(
         Product.category_id == cat_select).all()
     return result
-
 
 def get_data_choice(number):
     Session = sessionmaker(bind=engine)

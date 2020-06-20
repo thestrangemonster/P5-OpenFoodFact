@@ -49,14 +49,14 @@ class ManageDB:
             # try except
             try:
                 self.product_name = product['product_name']
-                #self.nutri_score = product['nutrition-score']
+                self.nutri_score = product['nutrition_grades']
                 self.store = product['stores_tags']
                 self.url = product['url']
                 # var data with data 
                 data = self.db.Product(
                             
                             product_name=self.product_name,
-                            #nutri_score=self.nutri_score,
+                            nutri_score=self.nutri_score,
                             stores_tags=self.store,
                             url=self.url)
                 # the datas are now in the list

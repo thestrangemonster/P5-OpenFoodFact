@@ -32,11 +32,11 @@ $ GRANT ALL PRIVILEGES ON DATABASE name_of_db TO name_of_user ;
 
 => fill with your data
 
-# var with name of user of the db
-user = 'your username'
-# var with password of the db
-password = 'your password'
-# var with the name of the host
-host = 'your host'
-# var with the name of the db
-database = 'your database 
+var with name of user of the db
+###### user = 'your username'
+var with password of the db
+###### password = 'your password'
+var with the name of the host
+###### host = 'your host'
+var with the name of the db
+###### database = 'your database' 
