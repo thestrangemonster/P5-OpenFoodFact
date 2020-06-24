@@ -12,7 +12,7 @@ Sélectionnez l'aliment. [Plusieurs propositions associées à un chiffre. L'uti
 
 # us import the files API, DATABASE and APP with every method specific to the files
 import database
-from api import ManageDB
+from api import Api
 from app import App
 # dictionnary for stoked the categories
 categories = {1: "pizza",
@@ -33,13 +33,15 @@ def main():
     run=True
     # instance database "import file database.py"
     db = database
+    # methode drop_db() => drop of the database
+    db.drop_db()
     # methode create_db() => creation of the database 
     db.create_db()
     # var for stoked the number of the limite and size of the products per categories 
     nb = 0
     # loop for each categories used for iterating over a sequence "dictionnary"
     for row in categories:
-        x = ManageDB(categories[row]).get_data_api()
+        x = Api(categories[row]).get_data_api()
         nb += x
         size.append(x)
         length.append(nb)
@@ -100,7 +102,7 @@ def main():
         # condition for exit or continue
         if app.run_app == False:
 
-            choice_for_exit_or_continue = input("[Y/N] You want continued? ")
+            choice_for_exit_or_continue = input("[Y/N] You want choice another category? ")
             if choice_for_exit_or_continue == "N":
                 run = False
 

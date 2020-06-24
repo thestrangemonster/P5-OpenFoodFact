@@ -4,6 +4,11 @@ CREATE DATABASE p5_openfoodfacts;
 GRANT ALL PRIVILEGES ON DATABASE p5_openfoodfacts TO tom;
 \connect p5_openfoodfacts
 """
+DROP TABLE IF EXISTS favorites; 
+DROP TABLE IF EXISTS Products;
+DROP TABLE IF EXISTS Categories;
+
+
 
 CREATE TABLE categories (
     id SERIAL PRIMARY KEY,

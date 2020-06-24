@@ -23,7 +23,6 @@ class App:
         self.page = 1
         # var get the data on the DB
         self.result = self.db.get_data(result)
-        print(self.result)
         print('\n')
         print('**********************************************')
         # loop for post the products
@@ -59,26 +58,26 @@ class App:
                     for row in self.show_choice:
                         print(row.id,row.product_name)
 
-                    self.show_substitute = self.db.get_data_choice(self.set_random_substitute())
-                    for row in self.show_substitute:
+                    self.show_random = self.db.get_data_random(result)
+                    
+                    print("the substitue is {} {}".format(
+                        self.show_random.id, self.show_random.product_name))
+                    print("the nutri-score is {}".format(self.show_random.nutri_score))
+                    print("available from {}".format(
+                        self.show_random.stores_tags.replace("{", "").replace("}", "")))
+                    print("fore more information {}".format(self.show_random.url))
+                    
+                    self.add_favorite = input(
+                    "[Y/N] You want add this product to your favorites? : ")
+                    if self.add_favorite == 'Y':
 
-                        print("the substitue is {} {}".format(
-                            row.id, row.product_name))
-                        print("available from {}".format(
-                            row.stores_tags.replace("{", "").replace("}", "")))
-                        print("fore more information {}".format(row.url))
+                        data = self.db.Favorite(product_name=row.product_name)
+                        self.db.set_data(data)
+                        print(row.id, row.product_name)
+
+                    else:
+                        pass                                        
                         
-                        self.add_favorite = input(
-                        "[Y/N] You want add this product to your favorites? : ")
-                        if self.add_favorite == 'Y':
-
-                            data = self.db.Favorite(product_name=row.product_name)
-                            self.db.set_data(data)
-                            print(row.id, row.product_name)
-
-                        else:
-                            pass                                        
-
             except ValueError:
 
                 self.push = str(self.push)

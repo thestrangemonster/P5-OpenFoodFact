@@ -2,6 +2,7 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm import relationship
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import create_engine, ForeignKey, Column, Integer, String
+from sqlalchemy.sql.expression import func, select
 # var with the method declarative_base()
 Base = declarative_base()
 # var with name of user of the db
@@ -51,12 +52,22 @@ def create_db():
         "Favorite", order_by=Favorite.id, back_populates="product")
     Base.metadata.create_all(engine)
 
+# method for drop the table in the db
+def drop_db():
+    Category.products = relationship(
+        "Product", order_by=Product.id, back_populates="category")
+    Product.favorites = relationship(
+        "Favorite", order_by=Favorite.id, back_populates="product")
+    Base.metadata.drop_all(engine)
+
 # method for set the datas in the db
 def set_data(data):
     Session = sessionmaker(bind=engine)
     session = Session()
     session.add(data)
     session.commit()
+
+
 
 # method for get the datas in the db
 def get_data(cat_select):
@@ -71,6 +82,14 @@ def get_data_choice(number):
     session = Session()
     result = session.query(Product).filter_by(id=number)
     return result
+
+def get_data_random(cat_select):
+    Session=sessionmaker(bind = engine)
+    session=Session()
+    result = session.query(Product).filter(
+        Product.nutri_score == "a", Product.category_id == cat_select).order_by(func.random()).first()
+    return result
+
 
 def get_data_favorite():
     Session = sessionmaker(bind=engine)

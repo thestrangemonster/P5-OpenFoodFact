@@ -11,7 +11,7 @@ import database
 
 
 
-class ManageDB:
+class Api:
 
     def __init__(self,category):  # , categories
         # variable with parameter category
