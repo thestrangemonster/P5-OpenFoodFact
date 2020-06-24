@@ -1,15 +1,3 @@
-
-"""
-L'utilisateur est sur le terminal. Ce dernier lui affiche les choix suivants:
-1 - Quel aliment souhaitez-vous remplacer ?
-2 - Retrouver mes aliments substitués.
-L'utilisateur sélectionne 1. Le programme pose les questions suivantes à l'utilisateur et ce dernier sélectionne les réponses:
-Sélectionnez la catégorie. [Plusieurs propositions associées à un chiffre. L'utilisateur entre le chiffre correspondant et appuie sur entrée]
-Sélectionnez l'aliment. [Plusieurs propositions associées à un chiffre. L'utilisateur entre le chiffre correspondant à l'aliment choisi et appuie sur entrée]
-    Le programme propose un substitut, sa description, un magasin ou l'acheter (le cas échéant) et un lien vers la page d'Open Food Facts concernant cet aliment.
-    L'utilisateur a alors la possibilité d'enregistrer le résultat dans la base de données.
-"""
-
 # us import the files API, DATABASE and APP with every method specific to the files
 import database
 from api import Api
@@ -41,11 +29,14 @@ def main():
     nb = 0
     # loop for each categories used for iterating over a sequence "dictionnary"
     for row in categories:
-        x = Api(categories[row]).get_data_api()
-        nb += x
-        size.append(x)
+        # methode for insert to the db, the datas from api 
+        data_from_api = Api(categories[row]).get_data_api()
+        nb += data_from_api
+        size.append(data_from_api)
         length.append(nb)
+    # instance class App   
     app = App()
+    # loop for run the app
     while run == True:
         #a loop, hes creats a list with all categories
         for row in categories:
@@ -53,7 +44,7 @@ def main():
         # a loop, if choice is not between 1 and 6
         nb_not_allowed = True
         while nb_not_allowed:
-
+            # if you press another number or letter 
             try:
                 choice_caterogie = int(
                     input("Enter a number between 1 and 6: "))
@@ -62,11 +53,10 @@ def main():
 
             except KeyError:
                 print("please enter a between 1 and 6, you introduced a wrong number ")
-
                 pass
+
             except ValueError:
-                print(
-                    "please enter a number between 1 and 6")
+                print("please enter a number between 1 and 6")
 
         # condiction for enter in the category pizza
         if choice_categories == "pizza":
@@ -102,11 +92,12 @@ def main():
         # condition for exit or continue
         if app.run_app == False:
 
-            choice_for_exit_or_continue = input("[Y/N] You want choice another category? ")
-            if choice_for_exit_or_continue == "N":
+            # if you want quit or if you want choice anather category
+            choice_for_exit_or_continue = input("[Q/AC] You want quit? or you want choice another category?")
+            if choice_for_exit_or_continue == "Q":
                 run = False
 
-            if choice_for_exit_or_continue == "Y":
+            if choice_for_exit_or_continue == "AC":
                 app.re_init()
 
 

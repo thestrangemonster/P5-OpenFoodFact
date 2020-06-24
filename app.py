@@ -33,6 +33,8 @@ class App:
         #print('page {} sur {}'.format(self.page, self.a+1))
         # loop while 
         while self.run_app:
+
+            # MENU 
             print('\n')
             print('*************************INFO*************************')
             print('for to go to the next page push r')
@@ -44,7 +46,7 @@ class App:
             print('\n')
             # var with input for enter a number or navigate 
             self.push = input(
-                "R ->, <- L or What food do you want to replace? enter a number: ")
+                "r ->, <- l or What food do you want to replace? enter a number: ")
             # bloc with keys words try except
             try:
                 # it's a condition if self push is a integer, so try excecut that 
@@ -54,10 +56,12 @@ class App:
                     print('enter the number in the list, thanks')
 
                 else:
+                    # show the product, when your choice is a number in the list
                     self.show_choice = self.db.get_data_choice(self.push)
                     for row in self.show_choice:
                         print(row.id,row.product_name)
 
+                    # show substitute
                     self.show_random = self.db.get_data_random(result)
                     
                     print("the substitue is {} {}".format(
@@ -67,8 +71,11 @@ class App:
                         self.show_random.stores_tags.replace("{", "").replace("}", "")))
                     print("fore more information {}".format(self.show_random.url))
                     
+                    # if you want add favorite or not 
                     self.add_favorite = input(
                     "[Y/N] You want add this product to your favorites? : ")
+
+                    # Yes => the datas is set in the table favorites
                     if self.add_favorite == 'Y':
 
                         data = self.db.Favorite(product_name=row.product_name)
@@ -77,7 +84,7 @@ class App:
 
                     else:
                         pass                                        
-                        
+            # if self.push is a string            
             except ValueError:
 
                 self.push = str(self.push)
@@ -85,7 +92,7 @@ class App:
                 if self.push in ("l", "r", "q", "f"):
                     pass
                 else:
-                    print("sorry")
+                    print("sorry press l,r,f or q")
 
                 if self.push == 'f':
                     self.show_favorite = self.db.get_data_favorite()

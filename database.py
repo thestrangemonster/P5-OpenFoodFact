@@ -3,6 +3,7 @@ from sqlalchemy.orm import relationship
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import create_engine, ForeignKey, Column, Integer, String
 from sqlalchemy.sql.expression import func, select
+
 # var with the method declarative_base()
 Base = declarative_base()
 # var with name of user of the db
@@ -67,8 +68,6 @@ def set_data(data):
     session.add(data)
     session.commit()
 
-
-
 # method for get the datas in the db
 def get_data(cat_select):
     Session = sessionmaker(bind=engine)
@@ -77,12 +76,14 @@ def get_data(cat_select):
         Product.category_id == cat_select).all()
     return result
 
+# method for get the datas in the db => when you choice a product
 def get_data_choice(number):
     Session = sessionmaker(bind=engine)
     session = Session()
     result = session.query(Product).filter_by(id=number)
     return result
 
+# method for get the datas in the db => when you choice a product => return a substitute random
 def get_data_random(cat_select):
     Session=sessionmaker(bind = engine)
     session=Session()
@@ -90,7 +91,7 @@ def get_data_random(cat_select):
         Product.nutri_score == "a", Product.category_id == cat_select).order_by(func.random()).first()
     return result
 
-
+# method for get the datas in the db => when you choice "f" show the favorites
 def get_data_favorite():
     Session = sessionmaker(bind=engine)
     session = Session()
