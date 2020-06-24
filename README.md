@@ -50,3 +50,7 @@ var with the name of the host
 ###### host = 'your host'
 var with the name of the db
 ###### database = 'your database' 
+
+=============== file main.py ===============
+
+for run => python3 main.py
