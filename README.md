@@ -8,7 +8,7 @@ brew install python3
 
 pip3 install virtualenv
 
-=> télécharger le dossier github de ce liens: 
+=> télécharger le dossier github de ce liens: https://github.com/thestrangemonster/P5-OpenFoodFact
 
 => se rendre dans le dossier github téléchargé dans le terminal avec la commande cd
 
