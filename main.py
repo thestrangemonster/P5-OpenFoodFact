@@ -93,7 +93,7 @@ def main():
         if app.run_app == False:
 
             # if you want quit or if you want choice anather category
-            choice_for_exit_or_continue = input("[Q/AC] You want quit? or you want choice another category?")
+            choice_for_exit_or_continue = input("[Q/AC] If you want quit type Q, or if you want choice another category type AC ")
             if choice_for_exit_or_continue == "Q":
                 run = False
 

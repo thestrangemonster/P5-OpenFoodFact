@@ -7,13 +7,13 @@ from sqlalchemy.sql.expression import func, select
 # var with the method declarative_base()
 Base = declarative_base()
 # var with name of user of the db
-user = 'tom'
+user = 'tom' # 'your_user_name'
 # var with password of the db
-password = 'root'
+password = 'root'  # 'your_password'
 # var with the name of the host
-host = 'localhost'
+host = 'localhost'  # 'your_host_name'
 # var with the name of the db
-database = 'test'
+database = 'test'  # 'your_database_name'
 #var for the connection wit all parameter for to connect to the db
 engine = create_engine(
     'postgresql://{}:{}@{}/{}'.format(user, password, host, database), echo=False)
