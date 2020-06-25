@@ -1,6 +1,7 @@
 import database
 import random
 
+
 class App:
     # method __init__() class
     def __init__(self):
@@ -9,8 +10,9 @@ class App:
         # init var for loop while
         self.run_app = True
 
-    # methode's posting  the products 
-    def display_choice_of_products(self,result,beging,end,size):
+        
+    # methode's posting the products
+    def display_choice_of_products(self, result, beging, end, size):
         # var beging for limit 
         self.beging = beging
         # var beging for limit
@@ -30,7 +32,6 @@ class App:
             if row.id >= self.beging and row.id <= self.beging + 9:
                 print(row.id, row.product_name)
 
-        #print('page {} sur {}'.format(self.page, self.a+1))
         # loop while 
         while self.run_app:
 
@@ -46,7 +47,8 @@ class App:
             print('\n')
             # var with input for enter a number or navigate 
             self.push = input(
-                "r ->, <- l or What food do you want to replace? enter a number: ")
+                                "r ->, <- l or What food do you want to replace? enter a number: "
+                            )
             # bloc with keys words try except
             try:
                 # it's a condition if self push is a integer, so try excecut that 
@@ -59,7 +61,7 @@ class App:
                     # show the product, when your choice is a number in the list
                     self.show_choice = self.db.get_data_choice(self.push)
                     for row in self.show_choice:
-                        print(row.id,row.product_name)
+                        print(row.id, row.product_name)
 
                     # show substitute
                     self.show_random = self.db.get_data_random(result)
@@ -73,7 +75,8 @@ class App:
                     
                     # if you want add favorite or not 
                     self.add_favorite = input(
-                    "[Y/N] You want add this product to your favorites? : ")
+                                                "[Y/N] You want add this product to your favorites? : "
+                                            )
 
                     # Yes => the datas is set in the table favorites
                     if self.add_favorite == 'Y':
@@ -97,7 +100,7 @@ class App:
                 if self.push == 'f':
                     self.show_favorite = self.db.get_data_favorite()
                     for row in self.show_favorite:
-                        print(row.id,row.product_name)
+                        print(row.id, row.product_name)
 
                 # R = RIGHT go to the next page
                 if self.push == 'r':
@@ -105,25 +108,17 @@ class App:
                     if self.page >= self.nb_of_page:
                         self.beging = end - (self.residual - 1)
                         self.page = self.nb_of_page + 1
-                        #print('\n')
-                        #print(
-                            #'***********************  {}  ***********************'.format(self.category.upper()))
                         for row in self.result:
                             if row.id >= self.beging and row.id <= self.end:
                                 print(row.id, row.product_name)
                         print(self.page)
-                        #print('page {} sur {}'.format())
                     else:
                         self.beging += 10
                         self.page += 1
-                        #print('\n')
-                        #print(
-                            #'***********************  {}  ***********************'.format(self.category.upper()))
                         for row in self.result:
                             if row.id >= self.beging and row.id <= self.beging + 9:
                                 print(row.id, row.product_name)
                         print(self.page)
-                        #print('page {} sur {}'.format(page, nb_of_page))
                
                 # L = LEFT go to the previous page
                 if self.push == 'l':
@@ -131,9 +126,6 @@ class App:
                     if self.page == 1:
                         self.page = 1
                         self.beging = beging
-                        #print('\n')
-                        #print(
-                            #'***********************  {}  ***********************'.format(self.category.upper()))
                         for row in self.result:
                             if row.id >= self.beging and row.id <= self.beging + 9:
                                 print(row.id, row.product_name)
@@ -142,9 +134,6 @@ class App:
                     else:
                         self.beging -= 10
                         self.page -= 1
-                        #print('\n')
-                        #print(
-                            #'***********************  {}  ***********************'.format(self.category.upper()))
                         for row in self.result:
                             if row.id >= self.beging and row.id <= self.beging + 9:
                                 print(row.id, row.product_name)
@@ -152,19 +141,10 @@ class App:
 
                 # Q = QUIT for quit the app
                 if self.push == 'q':
-                    #self.dbc.drop_table()
                     self.run_app = False
-
-    # methode for random a number 
-    def set_random_substitute(self):
-        #random.randint(a, b)
-        #Return a random integer N such that a <= N <= b. Alias for randrange(a, b+1).
-        self.substitute = random.randint(self.beging, self.end)
-        return self.substitute
 
 
     # méthode for re init the methode __init__ of the class App
     def re_init(self):
         self.db = database
         self.run_app = True
-
