@@ -63,10 +63,6 @@ def create_db():
 
 # method for drop the table in the db
 def drop_db():
-    Category.products = relationship(
-        "Product", order_by=Product.id, back_populates="category")
-    Product.favorites = relationship(
-        "Favorite", order_by=Favorite.id, back_populates="product")
     Base.metadata.drop_all(engine)
 
 

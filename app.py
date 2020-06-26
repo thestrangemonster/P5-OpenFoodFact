@@ -81,9 +81,11 @@ class App:
                     # Yes => the datas is set in the table favorites
                     if self.add_favorite == 'Y':
 
-                        data = self.db.Favorite(product_name=row.product_name)
+                        data = self.db.Favorite(
+                            product_name=self.show_random.product_name)
                         self.db.set_data(data)
-                        print(row.id, row.product_name)
+                        print(self.show_random.id,
+                              self.show_random.product_name)
 
                     else:
                         pass                                        

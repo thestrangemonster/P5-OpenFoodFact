@@ -66,24 +66,12 @@ def main():
             except ValueError:
                 print("please enter a number between 1 and 6")
 
-        # condiction for enter in the category pizza
-        if choice_categories == "pizza":
-            app.display_choice_of_products(1, length[0], length[1], size[0])    
-        # condiction for enter in the category fish
-        if choice_categories == "fish":
-            app.display_choice_of_products(2, length[1], length[2], size[1])       
-        # condiction for enter in the category meat
-        if choice_categories == "meat":
-            app.display_choice_of_products(3, length[2], length[3], size[2])          
-        # condiction for enter in the category cheese
-        if choice_categories == "cheese":
-            app.display_choice_of_products(4, length[3], length[4], size[3])           
-        # condiction for enter in the category vegetables
-        if choice_categories == "vegetables":
-            app.display_choice_of_products(5, length[4], length[5], size[4])            
-        # condiction for enter in the category fruits
-        if choice_categories == "fruits":
-            app.display_choice_of_products(6, length[5], length[6], size[5])      
+        for row in categories:
+            # condiction for enter in the category
+            if choice_categories == categories[row]:
+                app.display_choice_of_products(
+                    row, length[row-1], length[row], size[row-1])
+    
         # condition for exit or continue
         if app.run_app is False:
 
