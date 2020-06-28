@@ -23,23 +23,23 @@ engine = create_engine(
 
 # table category
 class Category(Base):
-    __tablename__ = 'categories'
+    __tablename__ = 'category'
 
     id = Column(Integer, primary_key=True)
     category_name = Column(String)
+    products = relationship('Product', secondary = 'link')
 
 
 # table product
 class Product(Base):
-    __tablename__ = 'products'
+    __tablename__ = 'product'
 
     id = Column(Integer, primary_key=True)
-    category_id = Column(Integer, ForeignKey('categories.id'))
     product_name = Column(String)
     nutri_score = Column(String)
     stores_tags = Column(String)
     url = Column(String)
-    category = relationship("Category", back_populates="products")
+    categories = relationship("Category", secondary='link')
 
 
 # table favorite
@@ -47,15 +47,18 @@ class Favorite(Base):
     __tablename__ = 'favorites'
 
     id = Column(Integer, primary_key=True)
-    favorite_id = Column(Integer, ForeignKey('products.id'))
+    favorite_id = Column(Integer, ForeignKey('product.id'))
     product_name = Column(String)
     product = relationship("Product", back_populates="favorites")
 
+class Link(Base):
+    __tablename__ = 'link'
+
+    category_id = Column(Integer, ForeignKey('category.id'), primary_key = True)
+    product_id = Column(Integer, ForeignKey('product.id'), primary_key = True)
 
 # method for creat the table in the db
 def create_db():
-    Category.products = relationship(
-        "Product", order_by=Product.id, back_populates="category")
     Product.favorites = relationship(
         "Favorite", order_by=Favorite.id, back_populates="product")
     Base.metadata.create_all(engine)
@@ -75,11 +78,13 @@ def set_data(data):
 
 
 # method for get the datas in the db
-def get_data(cat_select):
+def get_data(nb):
     Session = sessionmaker(bind=engine)
     session = Session()
-    result = session.query(Product).filter(
-        Product.category_id == cat_select).all()
+    result = session.query(Product, Category, Link).filter(
+        Category.id == nb, 
+        Link.category_id == Category.id, 
+        Link.product_id == Product.id).all()
     return result
 
 
@@ -96,9 +101,11 @@ def get_data_choice(number):
 def get_data_random(cat_select):
     Session = sessionmaker(bind=engine)
     session = Session()
-    result = session.query(Product).filter(
+    result = session.query(Category, Product, Link).filter(
                                             Product.nutri_score == "a", 
-                                            Product.category_id == cat_select
+                                            Category.id == cat_select,
+                                            Link.category_id == Category.id,
+                                            Link.product_id == Product.id
                                             ).order_by(func.random()).first()
     return result    
 

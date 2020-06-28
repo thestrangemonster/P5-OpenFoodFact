@@ -13,6 +13,7 @@ class App:
         
     # methode's posting the products
     def display_choice_of_products(self, result, beging, end, size):
+        print(result, beging, end, size)
         # var beging for limit 
         self.beging = beging
         # var beging for limit
@@ -25,12 +26,13 @@ class App:
         self.page = 1
         # var get the data on the DB
         self.result = self.db.get_data(result)
+        
         print('\n')
         print('**********************************************')
         # loop for post the products
         for row in self.result:
-            if row.id >= self.beging and row.id <= self.beging + 9:
-                print(row.id, row.product_name)
+            if row.Product.id >= self.beging and row.Product.id <= self.beging + 9:
+                print(row.Product.id, row.Product.product_name)
 
         # loop while 
         while self.run_app:
@@ -67,11 +69,13 @@ class App:
                     self.show_random = self.db.get_data_random(result)
                     
                     print("the substitue is {} {}".format(
-                        self.show_random.id, self.show_random.product_name))
-                    print("the nutri-score is {}".format(self.show_random.nutri_score))
+                        self.show_random.Product.id, self.show_random.Product.product_name))
+                    print(
+                        "the nutri-score is {}".format(self.show_random.Product.nutri_score))
                     print("available from {}".format(
-                        self.show_random.stores_tags.replace("{", "").replace("}", "")))
-                    print("fore more information {}".format(self.show_random.url))
+                        self.show_random.Product.stores_tags.replace("{", "").replace("}", "")))
+                    print("fore more information {}".format(
+                        self.show_random.Product.url))
                     
                     # if you want add favorite or not 
                     self.add_favorite = input(
@@ -82,10 +86,10 @@ class App:
                     if self.add_favorite == 'Y':
 
                         data = self.db.Favorite(
-                            product_name=self.show_random.product_name)
+                            product_name=self.show_random.Product.product_name)
                         self.db.set_data(data)
-                        print(self.show_random.id,
-                              self.show_random.product_name)
+                        print(self.show_random.Product.id,
+                              self.show_random.Product.product_name)
 
                     else:
                         pass                                        
@@ -111,15 +115,15 @@ class App:
                         self.beging = end - (self.residual - 1)
                         self.page = self.nb_of_page + 1
                         for row in self.result:
-                            if row.id >= self.beging and row.id <= self.end:
-                                print(row.id, row.product_name)
+                            if row.Product.id >= self.beging and row.Product.id <= self.end:
+                                print(row.Product.id, row.Product.product_name)
                         print(self.page)
                     else:
                         self.beging += 10
                         self.page += 1
                         for row in self.result:
-                            if row.id >= self.beging and row.id <= self.beging + 9:
-                                print(row.id, row.product_name)
+                            if row.Product.id >= self.beging and row.Product.id <= self.beging + 9:
+                                print(row.Product.id, row.Product.product_name)
                         print(self.page)
                
                 # L = LEFT go to the previous page
@@ -129,16 +133,16 @@ class App:
                         self.page = 1
                         self.beging = beging
                         for row in self.result:
-                            if row.id >= self.beging and row.id <= self.beging + 9:
-                                print(row.id, row.product_name)
+                            if row.Product.id >= self.beging and row.Product.id <= self.beging + 9:
+                                print(row.Product.id, row.Product.product_name)
                         print(self.page)
 
                     else:
                         self.beging -= 10
                         self.page -= 1
                         for row in self.result:
-                            if row.id >= self.beging and row.id <= self.beging + 9:
-                                print(row.id, row.product_name)
+                            if row.Product.id >= self.beging and row.Product.id <= self.beging + 9:
+                                print(row.Product.id, row.Product.product_name)
                         print(self.page)
 
                 # Q = QUIT for quit the app
