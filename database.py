@@ -27,7 +27,7 @@ class Category(Base):
 
     id = Column(Integer, primary_key=True)
     category_name = Column(String)
-    products = relationship('Product', secondary = 'link')
+    products = relationship('Product', secondary='link')
 
 
 # table product
@@ -51,16 +51,20 @@ class Favorite(Base):
     product_name = Column(String)
     product = relationship("Product", back_populates="favorites")
 
+
 class Link(Base):
     __tablename__ = 'link'
 
-    category_id = Column(Integer, ForeignKey('category.id'), primary_key = True)
-    product_id = Column(Integer, ForeignKey('product.id'), primary_key = True)
+    category_id = Column(Integer, ForeignKey('category.id'), primary_key=True)
+    product_id = Column(Integer, ForeignKey('product.id'), primary_key=True)
+
 
 # method for creat the table in the db
 def create_db():
     Product.favorites = relationship(
-        "Favorite", order_by=Favorite.id, back_populates="product")
+        "Favorite",
+        order_by=Favorite.id,
+        back_populates="product")
     Base.metadata.create_all(engine)
 
 
@@ -82,8 +86,8 @@ def get_data(nb):
     Session = sessionmaker(bind=engine)
     session = Session()
     result = session.query(Product, Category, Link).filter(
-        Category.id == nb, 
-        Link.category_id == Category.id, 
+        Category.id == nb,
+        Link.category_id == Category.id,
         Link.product_id == Product.id).all()
     return result
 
@@ -96,18 +100,18 @@ def get_data_choice(number):
     return result
 
 
-# method for get the datas in the db when you choice 
+# method for get the datas in the db when you choice
 # a product return a substitute random
 def get_data_random(cat_select):
     Session = sessionmaker(bind=engine)
     session = Session()
     result = session.query(Category, Product, Link).filter(
-                                            Product.nutri_score == "a", 
+                                            Product.nutri_score == "a",
                                             Category.id == cat_select,
                                             Link.category_id == Category.id,
                                             Link.product_id == Product.id
                                             ).order_by(func.random()).first()
-    return result    
+    return result
 
 
 # method for get the datas in the db
