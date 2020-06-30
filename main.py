@@ -3,9 +3,9 @@
 # database and app with every
 # method specific to the files
 
-import database
-from api import Api
-from app import App
+import database.database
+from api.api import Api
+from gui.app import App
 # dictionnary for stoked the categories
 categories = {1: "pizza",
               2: "fish",
@@ -26,7 +26,7 @@ def main():
     # var for the loop while
     run = True
     # instance database "import file database.py"
-    db = database
+    db = database.database
     # methode drop_db() => drop of the database
     db.drop_db()
     # methode create_db() => creation of the database
