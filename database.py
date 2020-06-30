@@ -47,9 +47,10 @@ class Favorite(Base):
     __tablename__ = 'favorites'
 
     id = Column(Integer, primary_key=True)
-    favorite_id = Column(Integer, ForeignKey('product.id'))
+    # favorite_id = Column(Integer, ForeignKey('product.id'))
     product_name = Column(String)
-    product = relationship("Product", back_populates="favorites")
+    # product = relationship("Product",
+    # back_populates="favorites")
 
 
 class Link(Base):
@@ -61,16 +62,16 @@ class Link(Base):
 
 # method for creat the table in the db
 def create_db():
-    Product.favorites = relationship(
-        "Favorite",
-        order_by=Favorite.id,
-        back_populates="product")
     Base.metadata.create_all(engine)
 
 
 # method for drop the table in the db
 def drop_db():
-    Base.metadata.drop_all(engine)
+    # Base.metadata.drop_all(engine)
+    Base.metadata.create_all(engine)
+    Link.__table__.drop(engine)
+    Category.__table__.drop(engine)
+    Product.__table__.drop(engine)
 
 
 # method for set the datas in the db

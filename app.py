@@ -10,14 +10,12 @@ class App:
         # init var for loop while
         self.run_app = True
 
-        
     # methode's posting the products
     def display_choice_of_products(self, result, beging, end, size):
-        print(result, beging, end, size)
-        # var beging for limit 
+        # var beging for limit
         self.beging = beging
         # var beging for limit
-        self.end = end 
+        self.end = end
         # var for nb of pages
         self.nb_of_page = size // 10
         # var for residual of the last page
@@ -26,18 +24,19 @@ class App:
         self.page = 1
         # var get the data on the DB
         self.result = self.db.get_data(result)
-        
         print('\n')
         print('**********************************************')
         # loop for post the products
         for row in self.result:
-            if row.Product.id >= self.beging and row.Product.id <= self.beging + 9:
+            comparison_one = row.Product.id >= self.beging
+            comparison_two = row.Product.id <= self.beging + 10
+            if comparison_one and comparison_two:
                 print(row.Product.id, row.Product.product_name)
 
-        # loop while 
+        # loop while
         while self.run_app:
 
-            # MENU 
+            # MENU
             print('\n')
             print('*************************INFO*************************')
             print('for to go to the next page push r')
@@ -47,44 +46,46 @@ class App:
             print('for to quit the app press q')
             print('******************************************************')
             print('\n')
-            # var with input for enter a number or navigate 
-            self.push = input(
-                                "r ->, <- l or What food do you want to replace? enter a number: "
-                            )
+            # var with input for enter a number or navigate
+            sign = "r -> , <- l or "
+            question = "What food do you want to replace?"
+            order = " enter a number: "
+            self.push = input("{}{}{}".format(sign, question, order))
             # bloc with keys words try except
             try:
-                # it's a condition if self push is a integer, so try excecut that 
+                # it's a condition if self push is a integer,
+                # so try excecut that
                 self.push = int(self.push)
 
                 if self.push > end or self.push < beging:
                     print('enter the number in the list, thanks')
 
                 else:
-                    # show the product, when your choice is a number in the list
+                    # show the product,
+                    # when your choice is a number in the list
                     self.show_choice = self.db.get_data_choice(self.push)
                     for row in self.show_choice:
                         print(row.id, row.product_name)
-
                     # show substitute
                     self.show_random = self.db.get_data_random(result)
-                    
                     print("the substitue is {} {}".format(
-                        self.show_random.Product.id, self.show_random.Product.product_name))
-                    print(
-                        "the nutri-score is {}".format(self.show_random.Product.nutri_score))
+                        self.show_random.Product.id,
+                        self.show_random.Product.product_name))
+                    print("the nutri-score is {}".format(
+                        self.show_random.Product.nutri_score))
                     print("available from {}".format(
-                        self.show_random.Product.stores_tags.replace("{", "").replace("}", "")))
+                        self.show_random.Product.stores_tags.replace(
+                            "{", "").replace("}", "")))
                     print("fore more information {}".format(
                         self.show_random.Product.url))
-                    
-                    # if you want add favorite or not 
-                    self.add_favorite = input(
-                                                "[Y/N] You want add this product to your favorites? : "
-                                            )
+                    # if you want add favorite or not
+                    # if you want add favorite or not
+                    stc_choice = "[Y/N] "
+                    stc = "Do you want add this product to your favorites? : "
+                    self.add_favorite = input("{}{}".format(stc_choice, stc))
 
                     # Yes => the datas is set in the table favorites
                     if self.add_favorite == 'Y':
-
                         data = self.db.Favorite(
                             product_name=self.show_random.Product.product_name)
                         self.db.set_data(data)
@@ -92,8 +93,8 @@ class App:
                               self.show_random.Product.product_name)
 
                     else:
-                        pass                                        
-            # if self.push is a string            
+                        pass
+            # if self.push is a string
             except ValueError:
 
                 self.push = str(self.push)
@@ -122,7 +123,7 @@ class App:
                         self.beging += 10
                         self.page += 1
                         for row in self.result:
-                            if row.Product.id >= self.beging and row.Product.id <= self.beging + 9:
+                            if row.Product.id >= self.beging and row.Product.id <= self.beging + 10:
                                 print(row.Product.id, row.Product.product_name)
                         print(self.page)
                
