@@ -14,19 +14,26 @@ CREATE TABLE categories (
     id SERIAL PRIMARY KEY,
     category_name VARCHAR(40) NOT NULL
 );
+
 CREATE TABLE products (
     id SERIAL PRIMARY KEY,
-    category_id  smallint NOT NULL,
     nutri_score VARCHAR(40) NOT NULL,
     product_name  VARCHAR(40) NOT NULL,
     stores_tags  VARCHAR(40) NOT NULL,
     url_  VARCHAR(200) NOT NULL
 );
-CREATE TABLE favorites (
-    id SERIAL PRIMARY KEY,
-    favorite_id smallint NOT NULL,
-    product_name  VARCHAR(40) NOT NULL
+
+
+CREATE TABLE link
+(
+    category_id smallint NOT NULL,
+    product_id smallint NOT NULL,
+    FOREIGN KEY (category_id) REFERENCES categories(id),
+    FOREIGN KEY (product_id) REFERENCES products(id),
+    UNIQUE (category_id, product_id)
 );
 
-ALTER TABLE products ADD CONSTRAINT fk_products_category_id FOREIGN KEY (category_id) REFERENCES categories (id) ON DELETE CASCADE;
-ALTER TABLE favorites ADD CONSTRAINT fk_favorites_favorite_id FOREIGN KEY (favorite_id) REFERENCES products (id) ON DELETE CASCADE;
+CREATE TABLE favorites (
+    id SERIAL PRIMARY KEY,
+    product_name  VARCHAR(40) NOT NULL
+);
